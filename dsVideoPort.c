@@ -32,7 +32,7 @@
 #include "dsDisplay.h"
 #include "dshalUtils.h"
 
-
+static bool isBootup = true;
 static bool isValidVopHandle(int handle);
 static const char* dsVideoGetResolution(uint32_t mode);
 static uint32_t dsGetHdmiMode(dsVideoPortResolution_t *resolution);
@@ -71,8 +71,12 @@ static void tvservice_hdcp_callback( void *callback_data,
 
       default:
       {
-           printf( "At bootup HDCP status is Authenticated for Rpi \n");
-           _halhdcpcallback((int)(hdmiHandle->m_nativeHandle),dsHDCP_STATUS_AUTHENTICATED);
+           if(isBootup == true)
+           {
+               printf( "At bootup HDCP status is Authenticated for Rpi \n");
+               _halhdcpcallback((int)(hdmiHandle->m_nativeHandle),dsHDCP_STATUS_AUTHENTICATED);
+               isBootup = false;
+           }
            break;
       }
     }
@@ -665,30 +669,46 @@ dsError_t dsSupportedTvResolutions(int handle, int *resolutions)
         for (i = 0; i < num_of_modes; i++) {
             switch(modeSupported[i].code) {
                 case HDMI_CEA_480p60:
+                case HDMI_CEA_480p60H:
                     *resolutions |= dsTV_RESOLUTION_480p;
                      break;
                 case HDMI_CEA_480i60:
-                     *resolutions |= dsTV_RESOLUTION_480i;
+                case HDMI_CEA_480i60H:
+                    *resolutions |= dsTV_RESOLUTION_480i;
                      break;
                 case HDMI_CEA_576i50:
+                case HDMI_CEA_576i50H:
                     *resolutions |= dsTV_RESOLUTION_576i;
                     break;
                 case HDMI_CEA_576p50: 
-                    *resolutions |= dsTV_RESOLUTION_576i;
+                case HDMI_CEA_576p50H:
+                    *resolutions |= dsTV_RESOLUTION_576p50;
+                    break;
+                case HDMI_CEA_720p50:
+                    *resolutions |= dsTV_RESOLUTION_720p50;
                     break;
                 case HDMI_CEA_720p60:
-                case HDMI_CEA_720p50:
                     *resolutions |= dsTV_RESOLUTION_720p;
                     break;
-                case HDMI_CEA_1080p60:
                 case HDMI_CEA_1080p50:
+                    *resolutions |= dsTV_RESOLUTION_1080p50;
+                    break;
                 case HDMI_CEA_1080p24:
+                    *resolutions |= dsTV_RESOLUTION_1080p24;
+                    break;
                 case HDMI_CEA_1080p25:
-                case HDMI_CEA_1080p30:
                     *resolutions |= dsTV_RESOLUTION_1080p;
                     break;
-                case HDMI_CEA_1080i60:
+                case HDMI_CEA_1080p30:
+                    *resolutions |= dsTV_RESOLUTION_1080p30;
+                    break;
+                case HDMI_CEA_1080p60:
+                    *resolutions |= dsTV_RESOLUTION_1080p60;
+                    break;
                 case HDMI_CEA_1080i50:
+                    *resolutions |= dsTV_RESOLUTION_1080i50;
+                    break;
+                case HDMI_CEA_1080i60:
                     *resolutions |= dsTV_RESOLUTION_1080i;
                     break;
                 default:

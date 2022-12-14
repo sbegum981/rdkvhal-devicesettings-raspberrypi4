@@ -84,7 +84,7 @@ static dsVideoPortResolution_t kResolutions[] = {
                         /*.pixelResolution = */                 dsVIDEO_PIXELRES_1920x1080,
                         /*.aspectRatio = */                             dsVIDEO_ASPECT_RATIO_16x9,
                         /*.stereoscopicMode = */                dsVIDEO_SSMODE_2D,
-                        /*.frameRate = */                               dsVIDEO_FRAMERATE_60,
+                        /*.frameRate = */                               dsVIDEO_FRAMERATE_25,
                         /*.interlaced = */                              _PROGRESSIVE,
                 },
 
@@ -112,19 +112,19 @@ static dsVideoPortResolution_t kResolutions[] = {
                         /*.interlaced = */                              _PROGRESSIVE,
                 },
 
-                {                                            "1080p25",
-                        /*.pixelResolution = */                 dsVIDEO_PIXELRES_1920x1080,
-                        /*.aspectRatio = */                             dsVIDEO_ASPECT_RATIO_16x9,
-                        /*.stereoscopicMode = */                dsVIDEO_SSMODE_2D,
-                        /*.frameRate = */                               dsVIDEO_FRAMERATE_25,
-                        /*.interlaced = */                              _PROGRESSIVE,
-                },
-
                 {                                            "1080p30",
                         /*.pixelResolution = */                 dsVIDEO_PIXELRES_1920x1080,
                         /*.aspectRatio = */                             dsVIDEO_ASPECT_RATIO_16x9,
                         /*.stereoscopicMode = */                dsVIDEO_SSMODE_2D,
                         /*.frameRate = */                               dsVIDEO_FRAMERATE_30,
+                        /*.interlaced = */                              _PROGRESSIVE,
+                },
+
+                {                                            "1080p60",
+                        /*.pixelResolution = */                 dsVIDEO_PIXELRES_1920x1080,
+                        /*.aspectRatio = */                             dsVIDEO_ASPECT_RATIO_16x9,
+                        /*.stereoscopicMode = */                dsVIDEO_SSMODE_2D,
+                        /*.frameRate = */                               dsVIDEO_FRAMERATE_60,
                         /*.interlaced = */                              _PROGRESSIVE,
                 }
 };
@@ -135,12 +135,12 @@ static hdmiSupportedRes_t resolutionMap[] = {
                 {"720p", 4},
                 {"720p50", 19},
                 {"1080i", 5},
-                {"1080p", 16},
+                {"1080p", 33},
                 {"1080i50", 20},
                 {"1080p50", 31},
                 {"1080p24", 32},
-                {"1080p25", 33},
-                {"1080p30", 34}
+                {"1080p30", 34},
+                {"1080p60", 16}
 };
 static const int kDefaultResIndex = 2; //Pick one resolution from kResolutions[] as default
 

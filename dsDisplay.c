@@ -35,7 +35,7 @@ dsDisplayEventCallback_t _halcallback = NULL;
 dsVideoPortResolution_t *HdmiSupportedResolution=NULL;
 static unsigned int numSupportedResn = 0;
 
-
+static bool isBootup = true;
 static dsError_t dsQueryHdmiResolution();
 TV_SUPPORTED_MODE_T dsVideoPortgetVideoFormatFromInfo(dsVideoResolution_t res,
                                                        unsigned frameRate, bool interlaced);
@@ -74,8 +74,12 @@ static void tvservice_callback( void *callback_data,
       }
       default:
       {
-         printf( "For Rpi - HDMI is attached by default" );
-         _halcallback((int)(hdmiHandle->m_nativeHandle),dsDISPLAY_EVENT_CONNECTED,&eventData);
+         if(isBootup == true)
+         {
+             printf( "For Rpi - HDMI is attached by default" );
+             _halcallback((int)(hdmiHandle->m_nativeHandle),dsDISPLAY_EVENT_CONNECTED,&eventData);
+             isBootup = false;
+         }
          break;
       }
   }

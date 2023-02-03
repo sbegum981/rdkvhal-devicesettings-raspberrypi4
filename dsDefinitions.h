@@ -38,7 +38,7 @@ typedef struct _dsDisplayParam_t
 
 dsDisplayParam_t *dsVideoDisplayHandler = '\0';
 
-dsError_t dsDisplayHdlCheck(int handle);
+dsError_t dsDisplayHdlCheck(intptr_t handle);
 
 size_t videoDisplayMaxIndex = 0;
 

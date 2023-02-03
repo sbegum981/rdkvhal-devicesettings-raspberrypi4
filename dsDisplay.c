@@ -128,7 +128,7 @@ dsError_t dsDisplayInit()
  * @param [out] *handle  The handle of video display device
  * @return dsError_t Error code.
  */
-dsError_t dsGetDisplay(dsVideoPortType_t m_vType, int index, int *handle)
+dsError_t dsGetDisplay(dsVideoPortType_t m_vType, int index, intptr_t *handle)
 {
     dsError_t ret = dsERR_NONE;
 
@@ -157,7 +157,7 @@ dsError_t dsGetDisplay(dsVideoPortType_t m_vType, int index, int *handle)
  * @param [out] *aspectRatio   The Aspect ration that is used
  * @return dsError_t Error code.
  */
-dsError_t dsGetDisplayAspectRatio(int handle, dsVideoAspectRatio_t *aspect)
+dsError_t dsGetDisplayAspectRatio(intptr_t handle, dsVideoAspectRatio_t *aspect)
 {
 	dsError_t ret = dsERR_NONE;
         TV_DISPLAY_STATE_T tvstate;
@@ -213,7 +213,7 @@ dsError_t dsGetDisplayAspectRatio(int handle, dsVideoAspectRatio_t *aspect)
  * @return dsError_t Error code.
  */
 
-dsError_t dsRegisterDisplayEventCallback(int handle, dsDisplayEventCallback_t cb)
+dsError_t dsRegisterDisplayEventCallback(intptr_t handle, dsDisplayEventCallback_t cb)
 {
 	dsError_t ret = dsERR_NONE;
 	/* Register The call Back */
@@ -230,7 +230,7 @@ dsError_t dsRegisterDisplayEventCallback(int handle, dsDisplayEventCallback_t cb
  * @param [out] *edid   The EDID info of the display
  * @return dsError_t Error code.
  */
-dsError_t dsGetEDID(int handle, dsDisplayEDID_t *edid)
+dsError_t dsGetEDID(intptr_t handle, dsDisplayEDID_t *edid)
 {
 	dsError_t ret = dsERR_NONE;
 	VDISPHandle_t *vDispHandle = (VDISPHandle_t *) handle;
@@ -293,7 +293,7 @@ dsError_t dsDisplayTerm()
  * @param [out] *handle  The handle of video display device
  * @return dsError_t Error code.
  */
-dsError_t dsDisplaygetNativeHandle(int handle, int *native)
+dsError_t dsDisplaygetNativeHandle(intptr_t handle, int *native)
 {
 	dsError_t ret = dsERR_NONE;
 	VDISPHandle_t *vDispHandle = (VDISPHandle_t *) handle;
@@ -442,7 +442,7 @@ TV_SUPPORTED_MODE_T dsVideoPortgetVideoFormatFromInfo(dsVideoResolution_t res, u
  * @length [out] *length The length of EDID buffer data
  * @return dsError_t Error code.
  */
-dsError_t dsGetEDIDBytes(int handle, unsigned char **edid, int *length)
+dsError_t dsGetEDIDBytes(intptr_t handle, unsigned char **edid, int *length)
 {
 	dsError_t ret = dsERR_NONE;
 	uint8_t buffer[128];

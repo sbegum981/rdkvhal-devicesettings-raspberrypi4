@@ -33,7 +33,7 @@
 #include "dshalUtils.h"
 
 static bool isBootup = true;
-static bool isValidVopHandle(int handle);
+static bool isValidVopHandle(intptr_t handle);
 static const char* dsVideoGetResolution(uint32_t mode);
 static uint32_t dsGetHdmiMode(dsVideoPortResolution_t *resolution);
 #define MAX_HDMI_MODE_ID (127)
@@ -92,7 +92,7 @@ static void tvservice_hdcp_callback( void *callback_data,
  * @return dsError_t Error code.
  */
 
-dsError_t dsRegisterHdcpStatusCallback(int handle, dsHDCPStatusCallback_t cb)
+dsError_t dsRegisterHdcpStatusCallback(intptr_t handle, dsHDCPStatusCallback_t cb)
 {
         dsError_t ret = dsERR_NONE;
         /* Register The call Back */
@@ -147,7 +147,7 @@ dsError_t  dsVideoPortInit()
  * @retval    ::dsError_t
  */
 
-dsError_t  dsGetVideoPort(dsVideoPortType_t type, int index, int *handle)
+dsError_t  dsGetVideoPort(dsVideoPortType_t type, int index, intptr_t *handle)
 {
 	dsError_t ret = dsERR_NONE;
 	
@@ -192,7 +192,7 @@ dsError_t  dsEnableAllVideoPort(bool enabled)
  * @return    Error Code.
  * @retval    ::dsError_t
  */
-dsError_t dsIsVideoPortEnabled(int handle, bool *enabled)
+dsError_t dsIsVideoPortEnabled(intptr_t handle, bool *enabled)
 {
 	dsError_t ret = dsERR_NONE;
 	VOPHandle_t *vopHandle = (VOPHandle_t *) handle;
@@ -230,7 +230,7 @@ dsError_t dsIsVideoPortEnabled(int handle, bool *enabled)
  * @return    Error Code.
  * @retval    ::dsError_t
  */
-dsError_t  dsEnableVideoPort(int handle, bool enabled)
+dsError_t  dsEnableVideoPort(intptr_t handle, bool enabled)
 {
 	dsError_t ret = dsERR_NONE;
 	VOPHandle_t *vopHandle = (VOPHandle_t *) handle;
@@ -304,7 +304,7 @@ dsError_t  dsEnableVideoPort(int handle, bool enabled)
  * @return    Error Code.
  * @retval    ::dsError_t
  */
-dsError_t  dsIsDisplayConnected(int handle, bool *connected)
+dsError_t  dsIsDisplayConnected(intptr_t handle, bool *connected)
 {
 	dsError_t ret = dsERR_NONE;
 	VOPHandle_t *vopHandle = (VOPHandle_t *) handle;
@@ -355,7 +355,7 @@ return ret;
  * @param [in] contentProtect True to turn on content protection
  * @return dsError_t Error code.
  */
-dsError_t  dsEnableDTCP(int handle, bool contentProtect)
+dsError_t  dsEnableDTCP(intptr_t handle, bool contentProtect)
 {
 	dsError_t ret = dsERR_NONE;
 	
@@ -379,7 +379,7 @@ dsError_t  dsEnableDTCP(int handle, bool contentProtect)
  * @param [in] keySize length of the key. 
  * @return dsError_t Error code.
  */
-dsError_t  dsEnableHDCP(int handle, bool contentProtect, char *hdcpKey, size_t keySize)
+dsError_t  dsEnableHDCP(intptr_t handle, bool contentProtect, char *hdcpKey, size_t keySize)
 {
 	dsError_t ret = dsERR_NONE;
 	return ret;
@@ -395,7 +395,7 @@ dsError_t  dsEnableHDCP(int handle, bool contentProtect, char *hdcpKey, size_t k
  * @param [out] *pContentProtected True when output is content protected
  * @return dsError_t Error code.
  */
-dsError_t  dsIsDTCPEnabled (int handle, bool* pContentProtected)
+dsError_t  dsIsDTCPEnabled (intptr_t handle, bool* pContentProtected)
 {
 	*pContentProtected = false;
 	return dsERR_OPERATION_NOT_SUPPORTED;
@@ -411,7 +411,7 @@ dsError_t  dsIsDTCPEnabled (int handle, bool* pContentProtected)
  * @param [out] *pContentProtected True when output is content protected
  * @return dsError_t Error code.
  */
-dsError_t  dsIsHDCPEnabled (int handle, bool* pContentProtected)
+dsError_t  dsIsHDCPEnabled (intptr_t handle, bool* pContentProtected)
 {
     dsError_t ret = dsERR_NONE;
 	VOPHandle_t *vopHandle = (VOPHandle_t *) handle;
@@ -435,7 +435,7 @@ dsError_t  dsIsHDCPEnabled (int handle, bool* pContentProtected)
  * @retval dsERR_NONE If sucessfully dsGetResolution api has been called using IARM support.
  * @retval dsERR_GENERAL General failure.
  */
-dsError_t  dsGetResolution(int handle, dsVideoPortResolution_t *resolution)
+dsError_t  dsGetResolution(intptr_t handle, dsVideoPortResolution_t *resolution)
 { 
 	dsError_t ret = dsERR_NONE;
 	const char *resolution_name = NULL;
@@ -500,7 +500,7 @@ static uint32_t dsGetHdmiMode(dsVideoPortResolution_t *resolution)
  * @return    Error Code.
  * @retval    ::dsError_t
  */
-dsError_t  dsSetResolution(int handle, dsVideoPortResolution_t *resolution, bool persist)
+dsError_t  dsSetResolution(intptr_t handle, dsVideoPortResolution_t *resolution, bool persist)
 {
 	/* Auto Select uses 720p. Should be converted to dsVideoPortResolution_t = 720p in DS-VOPConfig, not here */
                 printf("Inside dsSetResolution\n");
@@ -574,7 +574,7 @@ dsError_t  dsVideoPortTerm()
  * @param [in] handle  Handle for the Output Audio port
  * @return bool  true for valid handle
  */
-static bool isValidVopHandle(int m_handle) {
+static bool isValidVopHandle(intptr_t m_handle) {
 	for (int i = 0; i < dsVIDEOPORT_TYPE_MAX; i++) {
 		if ((intptr_t)&_handles[i][0] == m_handle) {
 			return true;
@@ -595,7 +595,7 @@ static bool isValidVopHandle(int m_handle) {
  * on return (@a true when port is active, @a false otherwise).                              
  * @return dsError_t Error code.
  */
-dsError_t dsIsVideoPortActive(int handle, bool *active)
+dsError_t dsIsVideoPortActive(intptr_t handle, bool *active)
 {
 	dsError_t ret = dsERR_NONE;
 	VOPHandle_t *vopHandle = (VOPHandle_t *) handle;
@@ -621,32 +621,32 @@ dsError_t dsIsVideoPortActive(int handle, bool *active)
 	return ret;
 }
 
-dsError_t dsGetHDCPProtocol (int handle, dsHdcpProtocolVersion_t *protocolVersion)
+dsError_t dsGetHDCPProtocol (intptr_t handle, dsHdcpProtocolVersion_t *protocolVersion)
 {
     dsError_t ret = dsERR_NONE;
     return ret;
 }
 
-dsError_t dsGetHDCPReceiverProtocol (int handle, dsHdcpProtocolVersion_t *protocolVersion)
+dsError_t dsGetHDCPReceiverProtocol (intptr_t handle, dsHdcpProtocolVersion_t *protocolVersion)
 {
     dsError_t ret = dsERR_NONE;
     return ret;
 }
 
-dsError_t dsGetHDCPCurrentProtocol (int handle, dsHdcpProtocolVersion_t *protocolVersion)
+dsError_t dsGetHDCPCurrentProtocol (intptr_t handle, dsHdcpProtocolVersion_t *protocolVersion)
 {
     dsError_t ret = dsERR_NONE;
     return ret;
 
 }
 
-dsError_t dsGetTVHDRCapabilities(int handle, int *capabilities)
+dsError_t dsGetTVHDRCapabilities(intptr_t handle, int *capabilities)
 {
     dsError_t ret = dsERR_NONE;
     return ret;
 }
 
-dsError_t dsSupportedTvResolutions(int handle, int *resolutions)
+dsError_t dsSupportedTvResolutions(intptr_t handle, int *resolutions)
 {
     dsError_t ret = dsERR_NONE;
     VOPHandle_t *vopHandle = (VOPHandle_t *) handle;

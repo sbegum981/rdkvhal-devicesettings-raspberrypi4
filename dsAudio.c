@@ -54,7 +54,7 @@ static dsAudioStereoMode_t _stereoModeHDMI = dsAUDIO_STEREO_STEREO;
 
 static void dsGetdBRange();
 
-bool dsIsValidHandle(unsigned int uHandle)
+bool dsIsValidHandle(intptr_t uHandle)
 {
     size_t index ;
     bool retValue = false;
@@ -153,7 +153,7 @@ static void dsGetdBRange()
 #endif
 }
 
-dsError_t  dsGetAudioPort(dsAudioPortType_t type, int index, int *handle)
+dsError_t  dsGetAudioPort(dsAudioPortType_t type, int index, intptr_t *handle)
 {
         dsError_t ret = dsERR_NONE;
         if (dsAudioType_isValid(type))
@@ -167,14 +167,14 @@ dsError_t  dsGetAudioPort(dsAudioPortType_t type, int index, int *handle)
         return ret;
 }
 
-dsError_t dsGetAudioEncoding(int handle, dsAudioEncoding_t *encoding)
+dsError_t dsGetAudioEncoding(intptr_t handle, dsAudioEncoding_t *encoding)
 {
         dsError_t ret = dsERR_NONE;
         *encoding = _encoding;
         return ret;
 }
 
-dsError_t dsGetAudioCompression(int handle, dsAudioCompression_t *compression)
+dsError_t dsGetAudioCompression(intptr_t handle, dsAudioCompression_t *compression)
 {
     dsError_t ret = dsERR_NONE;
         if (dsIsValidHandle(handle)) {
@@ -186,24 +186,24 @@ dsError_t dsGetAudioCompression(int handle, dsAudioCompression_t *compression)
         return ret;
 }
 
-dsError_t dsGetStereoMode(int handle, dsAudioStereoMode_t *stereoMode)
+dsError_t dsGetStereoMode(intptr_t handle, dsAudioStereoMode_t *stereoMode)
 {
 	dsError_t ret = dsERR_NONE;
         *stereoMode = _stereoModeHDMI;
 	return ret;
 }
 
-dsError_t dsGetPersistedStereoMode (int handle, dsAudioStereoMode_t *stereoMode)
+dsError_t dsGetPersistedStereoMode (intptr_t handle, dsAudioStereoMode_t *stereoMode)
 {
         return dsERR_NONE;
 }
 
-dsError_t dsGetStereoAuto (int handle, int *autoMode)
+dsError_t dsGetStereoAuto (intptr_t handle, int *autoMode)
 {
         return dsERR_NONE;
 }
 
-dsError_t dsIsAudioMute (int handle, bool *muted)
+dsError_t dsIsAudioMute (intptr_t handle, bool *muted)
 {
 #ifdef ALSA_AUDIO_MASTER_CONTROL_ENABLE
         printf("Inside %s :%d\n",__FUNCTION__,__LINE__);
@@ -237,7 +237,7 @@ dsError_t dsIsAudioMute (int handle, bool *muted)
 #endif
 }
 
-dsError_t dsSetAudioMute(int handle, bool mute)
+dsError_t dsSetAudioMute(intptr_t handle, bool mute)
 {
 #ifdef ALSA_AUDIO_MASTER_CONTROL_ENABLE
         printf("Inside %s :%d\n",__FUNCTION__,__LINE__);
@@ -267,7 +267,7 @@ dsError_t dsSetAudioMute(int handle, bool mute)
 #endif
 }
 
-dsError_t  dsIsAudioPortEnabled(int handle, bool *enabled)
+dsError_t  dsIsAudioPortEnabled(intptr_t handle, bool *enabled)
 {
     printf("Inside %s :%d\n",__FUNCTION__,__LINE__);
     dsError_t ret = dsERR_NONE;
@@ -279,13 +279,13 @@ dsError_t  dsIsAudioPortEnabled(int handle, bool *enabled)
     return ret;
 }
 
-dsError_t  dsEnableAudioPort(int handle, bool enabled)
+dsError_t  dsEnableAudioPort(intptr_t handle, bool enabled)
 {
     printf("Inside %s :%d\n",__FUNCTION__,__LINE__);
     return dsSetAudioMute ( handle, !enabled );
 }
 
-dsError_t dsGetAudioGain(int handle, float *gain)
+dsError_t dsGetAudioGain(intptr_t handle, float *gain)
 {
 #ifdef ALSA_AUDIO_MASTER_CONTROL_ENABLE
         dsError_t ret = dsERR_NONE;
@@ -338,7 +338,7 @@ dsError_t dsGetAudioGain(int handle, float *gain)
 
 }
 
-dsError_t dsGetAudioDB(int handle, float *db)
+dsError_t dsGetAudioDB(intptr_t handle, float *db)
 {
     #ifdef ALSA_AUDIO_MASTER_CONTROL_ENABLE
         dsError_t ret = dsERR_NONE;
@@ -370,7 +370,7 @@ dsError_t dsGetAudioDB(int handle, float *db)
 #endif
 }
 
-dsError_t dsGetAudioLevel(int handle, float *level)
+dsError_t dsGetAudioLevel(intptr_t handle, float *level)
 {
  #ifdef ALSA_AUDIO_MASTER_CONTROL_ENABLE
         dsError_t ret = dsERR_NONE;
@@ -402,62 +402,62 @@ dsError_t dsGetAudioLevel(int handle, float *level)
 #endif
 }
 
-dsError_t dsGetAudioMaxDB(int handle, float *maxDb)
+dsError_t dsGetAudioMaxDB(intptr_t handle, float *maxDb)
 {
         *maxDb = dBmax;
         return dsERR_NONE;
 }
 
-dsError_t dsGetAudioMinDB(int handle, float *minDb)
+dsError_t dsGetAudioMinDB(intptr_t handle, float *minDb)
 {
         *minDb = dBmin;
         return dsERR_NONE;
 }
 
-dsError_t dsGetAudioOptimalLevel(int handle, float *optimalLevel)
+dsError_t dsGetAudioOptimalLevel(intptr_t handle, float *optimalLevel)
 {
 	dsError_t ret = dsERR_NONE;
 	return ret;
 }
 
-dsError_t  dsIsAudioLoopThru(int handle, bool *loopThru)
+dsError_t  dsIsAudioLoopThru(intptr_t handle, bool *loopThru)
 {
 	dsError_t ret = dsERR_NONE;
 	return ret;
 }
 
-dsError_t dsSetAudioEncoding(int handle, dsAudioEncoding_t encoding)
+dsError_t dsSetAudioEncoding(intptr_t handle, dsAudioEncoding_t encoding)
 {
     dsError_t ret = dsERR_NONE;
     _encoding = encoding;
     return ret;
 }
 
-dsError_t dsSetAudioCompression(int handle, dsAudioCompression_t compression)
+dsError_t dsSetAudioCompression(intptr_t handle, dsAudioCompression_t compression)
 {
     dsError_t ret = dsERR_NONE;
     return ret;
 }
 
-dsError_t dsIsAudioMSDecode(int handle, bool *ms11Enabled)
+dsError_t dsIsAudioMSDecode(intptr_t handle, bool *ms11Enabled)
 {
     dsError_t ret = dsERR_NONE;
     *ms11Enabled = _isms11Enabled;
     return ret;
 }
 
-dsError_t dsSetStereoMode(int handle, dsAudioStereoMode_t mode) {
+dsError_t dsSetStereoMode(intptr_t handle, dsAudioStereoMode_t mode) {
 
 	dsError_t ret = dsERR_NONE;
 	return ret;
 }
 
-dsError_t dsSetStereoAuto (int handle, int autoMode)
+dsError_t dsSetStereoAuto (intptr_t handle, int autoMode)
 {
         return dsERR_NONE;
 }
 
-dsError_t dsSetAudioGain(int handle, float gain)
+dsError_t dsSetAudioGain(intptr_t handle, float gain)
 {
 #ifdef ALSA_AUDIO_MASTER_CONTROL_ENABLE
         dsError_t ret = dsERR_NONE;
@@ -517,7 +517,7 @@ dsError_t dsSetAudioGain(int handle, float gain)
 #endif
 }
 
-dsError_t dsSetAudioDB(int handle, float db)
+dsError_t dsSetAudioDB(intptr_t handle, float db)
 {
 #ifdef ALSA_AUDIO_MASTER_CONTROL_ENABLE
         dsError_t ret = dsERR_NONE;
@@ -557,7 +557,7 @@ dsError_t dsSetAudioDB(int handle, float db)
 #endif
 }
 
-dsError_t dsSetAudioLevel(int handle, float level)
+dsError_t dsSetAudioLevel(intptr_t handle, float level)
 {
  #ifdef ALSA_AUDIO_MASTER_CONTROL_ENABLE
         dsError_t ret = dsERR_NONE;
@@ -590,7 +590,7 @@ dsError_t dsSetAudioLevel(int handle, float level)
 #endif
 }
 
-dsError_t dsEnableLoopThru(int handle, bool loopThru)
+dsError_t dsEnableLoopThru(intptr_t handle, bool loopThru)
 {
 	dsError_t ret = dsERR_NONE;
 	return ret;

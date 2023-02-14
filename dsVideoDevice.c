@@ -28,7 +28,7 @@ dsError_t  dsVideoDeviceInit()
 	return ret;
 }
 
-dsError_t  dsGetVideoDevice(int index, int *handle)
+dsError_t  dsGetVideoDevice(int index, intptr_t *handle)
 {
 	dsError_t ret = dsERR_NONE;
 
@@ -36,14 +36,14 @@ dsError_t  dsGetVideoDevice(int index, int *handle)
 	return ret;
 }
 
-dsError_t  dsSetDFC(int handle, dsVideoZoom_t dfc)
+dsError_t  dsSetDFC(intptr_t handle, dsVideoZoom_t dfc)
 {
 	dsError_t ret = dsERR_NONE;
 
 	return ret;
 }
 
-dsError_t  dsGetDFC(int handle, dsVideoZoom_t *dfc)
+dsError_t  dsGetDFC(intptr_t handle, dsVideoZoom_t *dfc)
 {
 	dsError_t ret = dsERR_NONE;
 

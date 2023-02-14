@@ -122,7 +122,7 @@ dsError_t dsReadCfgFile(size_t index,char* portString,port_initialization_fp ini
 *                         configuration file.
 * Arguments             :
 *     INPUT        	: dsAudioPortType_t type, int index
-*     OUTPUT          	: int *handle
+*     OUTPUT          	: intptr_t *handle
 *     INPUT/OUTPUT     	: NA
 * Globals affected      : None
 * Return Value          : dsError_t  --- > Error code for Device Settings
@@ -160,7 +160,7 @@ char* dsGetValidStringFrmCfg(FILE* fptr)
 *                         property string from configuration file.
 * Arguments             :
 *     INPUT        	: dsAudioPortType_t type, int index
-*     OUTPUT          	: int *handle
+*     OUTPUT          	: intptr_t *handle
 *     INPUT/OUTPUT     	: NA
 * Globals affected      : None
 * Return Value          : dsError_t  --- > Error code for Device Settings

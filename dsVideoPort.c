@@ -235,7 +235,7 @@ dsError_t  dsEnableVideoPort(intptr_t handle, bool enabled)
 	dsError_t ret = dsERR_NONE;
 	VOPHandle_t *vopHandle = (VOPHandle_t *) handle;
         SDTV_OPTIONS_T options;
-        int res = 0;
+        int res = 0, rc = 0;
 
 	if (!isValidVopHandle(handle)) {
          return dsERR_INVALID_PARAM;
@@ -274,9 +274,22 @@ dsError_t  dsEnableVideoPort(intptr_t handle, bool enabled)
                          {
                              printf( "Failed to power on HDMI with preferred settings" );
                          }
+
+                         rc = system("/lib/rdk/rpiDisplayEnable.sh 1");
+                         if(rc == -1)
+                         {
+                                printf( "Failed to run script rpiDisplayEnable.sh with enable=1 rc=%d \n", rc );
+                         }
                      }
                      else
                      {
+                         rc = system("/lib/rdk/rpiDisplayEnable.sh 0");
+                         if(rc == -1)
+                         {
+                                printf( "Failed to run script rpiDisplayEnable.sh with enable=0 rc=%d \n", rc );
+                         }
+                         sleep(1);
+
                          res = vc_tv_power_off();
                          if ( res != 0 )
                          {

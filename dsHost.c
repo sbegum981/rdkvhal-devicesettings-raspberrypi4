@@ -52,20 +52,6 @@ dsError_t dsGetHostPowerMode(int *currPower)
     return ret;
 }
 
-dsError_t dsGetPreferredSleepMode(dsSleepMode_t *pMode)
-{
-    dsError_t ret = dsERR_NONE;
-
-    return ret;
-}
-
-dsError_t dsSetPreferredSleepMode(dsSleepMode_t mode)
-{
-    dsError_t ret = dsERR_NONE;
-
-    return ret;
-}
-
 dsError_t dsGetCPUTemperature(float *cpuTemperature)
 {
     dsError_t ret = dsERR_NONE;
@@ -105,6 +91,8 @@ dsError_t dsSetVersion(uint32_t versionNumber)
 
    printf("setting hal version in ds-hal %x\n", versionNumber);
    version_num = versionNumber;
+
+   return ret;
 }
 
 dsError_t dsGetFreeSystemGraphicsMemory(uint64_t* memory)
@@ -135,7 +123,7 @@ dsError_t dsGetFreeSystemGraphicsMemory(uint64_t* memory)
 
     printf( "Free GPU memory is %lld\n", *memory);
 
-    return dsERR_NONE;
+    return ret;
 
 }
 
@@ -166,7 +154,7 @@ dsError_t dsGetTotalSystemGraphicsMemory(uint64_t* memory)
     *memory = strtol(equal, (char **)NULL, 10);
 
     printf( "Total GPU memory is %lld\n", *memory);
-    return dsERR_NONE;
+    return ret;
 }
 
 dsError_t dsHostTerm()

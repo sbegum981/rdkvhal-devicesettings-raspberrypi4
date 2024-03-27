@@ -68,6 +68,7 @@ int vchi_tv_uninit()
     return res;
 }
 
+/*
 static char * extract_string(unsigned char *x, int *valid_termination, int len)
 {
     static char str_buf[128];
@@ -97,6 +98,7 @@ static char * extract_string(unsigned char *x, int *valid_termination, int len)
 
     return str_buf;
 }
+*/
 
 static int
 detailedBlock(unsigned char *x, int extension, dsDisplayEDID_t *displayEdidInfo)
@@ -114,8 +116,6 @@ detailedBlock(unsigned char *x, int extension, dsDisplayEDID_t *displayEdidInfo)
 }
 static void hdmi_cea_block(unsigned char *x, dsDisplayEDID_t *displayEdidInfo)
 {
-    int length = x[0] & 0x1f;
-
     displayEdidInfo->physicalAddressA = (x[4] >> 4);
     displayEdidInfo->physicalAddressB = (x[4] & 0x0f);
     displayEdidInfo->physicalAddressC = (x[5] >> 4);
@@ -156,6 +156,7 @@ static int parse_cea_block(unsigned char *x, dsDisplayEDID_t *displayEdidInfo)
     for (detailed_buf = x + offset; detailed_buf + 18 < x + 127; detailed_buf += 18)
             if (detailed_buf[0])
                 detailedBlock(detailed_buf, 1, displayEdidInfo);
+    return ret;
 }
 
 void fill_edid_struct(unsigned char *edidBytes, dsDisplayEDID_t *displayEdidInfo, int size)

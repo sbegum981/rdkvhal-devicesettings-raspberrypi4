@@ -44,11 +44,9 @@ typedef struct _AOPHandle_t {
 
 static AOPHandle_t _handles[dsAUDIOPORT_TYPE_MAX][2] = {
 };
-static unsigned int *dsAudioHandlers = NULL;
 float dBmin;
 float dBmax;
 static dsAudioEncoding_t _encoding = dsAUDIO_ENC_PCM;
-static bool  _loopThru = false;
 static bool  _isms11Enabled = false;
 static dsAudioStereoMode_t _stereoModeHDMI = dsAUDIO_STEREO_STEREO;
 
@@ -296,7 +294,6 @@ dsError_t dsGetAudioGain(intptr_t handle, float *gain)
 
         if ( dsERR_NONE == ret ) {
                 long value_got;
-                float db_value;
                 const char *s_card = ALSA_CARD_NAME;
                 const char *element_name = ALSA_ELEMENT_NAME;
                 long vol_min = 0, vol_max = 0;

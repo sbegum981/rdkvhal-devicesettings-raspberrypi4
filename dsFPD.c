@@ -92,7 +92,7 @@ dsError_t dsSetFPBlink (dsFPDIndicator_t eIndicator, unsigned int uBlinkDuration
 
 dsError_t dsSetFPBrightness (dsFPDIndicator_t eIndicator, dsFPDBrightness_t eBrightness)
 {
-    int gpio_pin;
+    int gpio_pin = LED_RED;
 
     if (eIndicator == dsFPD_INDICATOR_POWER)
         gpio_pin = LED_RED;

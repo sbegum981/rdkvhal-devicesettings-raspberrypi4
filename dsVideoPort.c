@@ -58,7 +58,6 @@ static void tvservice_hdcp_callback( void *callback_data,
                                 uint32_t param2 )
 {
     VOPHandle_t *hdmiHandle = (VOPHandle_t*)callback_data;
-    unsigned char  eventData=0;
     switch ( reason )
     {
       case VC_HDMI_HDCP_AUTH:
@@ -427,7 +426,6 @@ dsError_t  dsIsDTCPEnabled (intptr_t handle, bool* pContentProtected)
 dsError_t  dsIsHDCPEnabled (intptr_t handle, bool* pContentProtected)
 {
     dsError_t ret = dsERR_NONE;
-	VOPHandle_t *vopHandle = (VOPHandle_t *) handle;
 
     if (!isValidVopHandle(handle)){
          *pContentProtected = false;
@@ -452,7 +450,6 @@ dsError_t  dsGetResolution(intptr_t handle, dsVideoPortResolution_t *resolution)
 { 
 	dsError_t ret = dsERR_NONE;
 	const char *resolution_name = NULL;
-	VOPHandle_t *vopHandle = (VOPHandle_t *) handle;
 	TV_DISPLAY_STATE_T tvstate; 
 	uint32_t hdmi_mode;
 
@@ -473,12 +470,12 @@ dsError_t  dsGetResolution(intptr_t handle, dsVideoPortResolution_t *resolution)
 
 static const char* dsVideoGetResolution(uint32_t hdmiMode)
 { 
-        const char *res_name = NULL;
-     size_t iCount = (sizeof(resolutionMap) / sizeof(resolutionMap[0]));
-     for (int i = 0; i < iCount; i++) {
-         if (resolutionMap[i].mode == hdmiMode)
-         res_name = resolutionMap[i].rdkRes;
-     }    
+    const char *res_name = NULL;
+    size_t iCount = (sizeof(resolutionMap) / sizeof(resolutionMap[0]));
+    for (size_t i = 0; i < iCount; i++) {
+        if (resolutionMap[i].mode == (int) hdmiMode)
+        res_name = resolutionMap[i].rdkRes;
+    }    
     return res_name;
 }
 
@@ -486,7 +483,7 @@ static uint32_t dsGetHdmiMode(dsVideoPortResolution_t *resolution)
 {
     uint32_t hdmi_mode = 0;
     size_t iCount = (sizeof(resolutionMap) / sizeof(resolutionMap[0]));
-    for (int i = 0; i < iCount; i++) {
+    for (size_t i = 0; i < iCount; i++) {
         size_t length = strlen(resolution->name) > strlen(resolutionMap[i].rdkRes) ? strlen(resolution->name) : strlen(resolutionMap[i].rdkRes);
         if (!strncmp(resolution->name, resolutionMap[i].rdkRes, length))
         {

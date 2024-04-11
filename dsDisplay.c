@@ -97,7 +97,6 @@ dsError_t dsDisplayInit()
 
 	dsError_t ret = dsERR_NONE;
         int32_t res = 0;
-	int rc;
 
 	_handles[dsVIDEOPORT_TYPE_HDMI][0].m_vType  = dsVIDEOPORT_TYPE_HDMI;
 	_handles[dsVIDEOPORT_TYPE_HDMI][0].m_nativeHandle = dsVIDEOPORT_TYPE_HDMI;
@@ -245,7 +244,7 @@ dsError_t dsGetEDID(intptr_t handle, dsDisplayEDID_t *edid)
         int length = 0;
         edid->numOfSupportedResolution = 0;
         if (vDispHandle->m_vType == dsVIDEOPORT_TYPE_HDMI) {
-            dsGetEDIDBytes(handle, &raw, &length);
+            dsGetEDIDBytes(handle, raw, &length);
             fill_edid_struct(raw, edid, length);
             dsQueryHdmiResolution();
 
@@ -273,14 +272,14 @@ dsError_t dsGetEDID(intptr_t handle, dsDisplayEDID_t *edid)
  */
 dsError_t dsDisplayTerm()
 {
-    int res = 0;
-     res = vchi_tv_uninit();
+    dsError_t res = dsERR_NONE;
+    vchi_tv_uninit();
     if(HdmiSupportedResolution)
     {
-                  free(HdmiSupportedResolution);
-                  HdmiSupportedResolution=NULL;
+        free(HdmiSupportedResolution);
+        HdmiSupportedResolution=NULL;
     }    
-    return dsERR_NONE;
+    return res;
 }
 
 /**
@@ -326,7 +325,6 @@ static dsError_t dsQueryHdmiResolution()
    HDMI_RES_GROUP_T group;
    uint32_t mode;
    int num_of_modes;
-   int i;
    memset(modeSupported, 0, sizeof(modeSupported));
 
    num_of_modes = vc_tv_hdmi_get_supported_modes_new( HDMI_RES_GROUP_CEA, modeSupported,
@@ -350,7 +348,7 @@ static dsError_t dsQueryHdmiResolution()
     {
 		for (size_t i = 0; i < iCount; i++)
 		{
-                        for ( size_t j = 0; j < num_of_modes; j++ )
+                        for ( int j = 0; j < num_of_modes; j++ )
                         {
                             if (modeSupported[j].code == resolutionMap[i].mode)
                             {
@@ -372,7 +370,7 @@ static dsVideoPortResolution_t* dsgetResolutionInfo(const char *res_name)
 {
     size_t iCount = 0;
     iCount = (sizeof(kResolutions) / sizeof(kResolutions[0]));
-    for (int i=0; i < iCount; i++) {
+    for (size_t i=0; i < iCount; i++) {
         if (!strncmp(res_name, kResolutions[i].name, strlen(res_name))) {
             return &kResolutions[i];
         }
@@ -398,7 +396,7 @@ TV_SUPPORTED_MODE_T dsVideoPortgetVideoFormatFromInfo(dsVideoResolution_t res, u
                 break;
         case dsVIDEO_PIXELRES_MAX: //to mute compiler warning
         default:
-                dsUTL_ASSERT(0);
+                break;
         }
       
     switch(frameRate) {
@@ -442,7 +440,7 @@ TV_SUPPORTED_MODE_T dsVideoPortgetVideoFormatFromInfo(dsVideoResolution_t res, u
  * @length [out] *length The length of EDID buffer data
  * @return dsError_t Error code.
  */
-dsError_t dsGetEDIDBytes(intptr_t handle, unsigned char **edid, int *length)
+dsError_t dsGetEDIDBytes(intptr_t handle, unsigned char *edid, int *length)
 {
 	dsError_t ret = dsERR_NONE;
 	uint8_t buffer[128];
@@ -475,7 +473,7 @@ dsError_t dsGetEDIDBytes(intptr_t handle, unsigned char **edid, int *length)
 		siz = vc_tv_hdmi_ddc_read(offset, sizeof( buffer), buffer);
 		memcpy(edidBuf+offset, (unsigned char *)buffer, sizeof(buffer));
 	}
-	*edid = edidBuf;
+	edid = edidBuf;
 	*length = offset;
     return ret;
 }

@@ -506,11 +506,10 @@ static uint32_t dsGetHdmiMode(dsVideoPortResolution_t *resolution)
  * @param [in] handle         Handle of the video port.
  * @param [in] *resolution    The address of a structure containing the video port
  *                            resolution settings.
- * @oaram [in] persist        enable/disable flag for persistence storage
  * @return    Error Code.
  * @retval    ::dsError_t
  */
-dsError_t  dsSetResolution(intptr_t handle, dsVideoPortResolution_t *resolution, bool persist)
+dsError_t  dsSetResolution(intptr_t handle, dsVideoPortResolution_t *resolution)
 {
 	/* Auto Select uses 720p. Should be converted to dsVideoPortResolution_t = 720p in DS-VOPConfig, not here */
                 printf("Inside dsSetResolution\n");

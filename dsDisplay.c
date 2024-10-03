@@ -444,7 +444,6 @@ dsError_t dsGetEDIDBytes(intptr_t handle, unsigned char *edid, int *length)
 {
 	dsError_t ret = dsERR_NONE;
 	uint8_t buffer[128];
-	unsigned char *edidBuf = NULL;
 	size_t offset = 0;
 	int i, extensions = 0;
 	VDISPHandle_t *vDispHandle = (VDISPHandle_t *) handle;
@@ -462,18 +461,12 @@ dsError_t dsGetEDIDBytes(intptr_t handle, unsigned char *edid, int *length)
 	int siz = vc_tv_hdmi_ddc_read(offset, sizeof (buffer), buffer);
 	offset += sizeof( buffer);
 	extensions = buffer[0x7e]; /* This tells you how many more blocks to read */
-	edidBuf = (unsigned char *)malloc((extensions+1)*sizeof(buffer));
-	if (!edidBuf) {
-		printf("Failed to allocate memory");
-		return ret;
-	}
-	memcpy(edidBuf, (unsigned char *)buffer, sizeof(buffer));
+	memcpy(edid, (unsigned char *)buffer, sizeof(buffer));
 	/* First block always exist */
 	for(i = 0; i < extensions; i++, offset += sizeof( buffer)) {
 		siz = vc_tv_hdmi_ddc_read(offset, sizeof( buffer), buffer);
-		memcpy(edidBuf+offset, (unsigned char *)buffer, sizeof(buffer));
+		memcpy(edid+offset, (unsigned char *)buffer, sizeof(buffer));
 	}
-	edid = edidBuf;
 	*length = offset;
     return ret;
 }

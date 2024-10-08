@@ -426,19 +426,28 @@ TV_SUPPORTED_MODE_T dsVideoPortgetVideoFormatFromInfo(dsVideoResolution_t res, u
 }
 
 /**
- * @brief To get the EDID buffer and length of the connected display
+ * @brief Gets the EDID buffer and EDID length of connected display device. 
+ * 
+ * This function is used to get the EDID buffer and EDID size of the connected display corresponding to
+ * the specified display device handle.
  *
- * This function is used to get the EDID information of the connected display
+ * @param[in] handle    - Handle of the display device
+ * @param[out] edid     - Pointer to raw EDID buffer
+ * @param[out] length   - length of the EDID buffer data. Min value is 0
  *
- * @param [in] handle   Handle for the video display. This must be HDMI output
- *                      handle.
- * @param [out] **edid  The EDID raw buffer of the display. The HAL implementation should
- *                      malloc() the buffer and return it to the application. The
- *                      application is required to free() the buffer after using it;
- *                      If HDMI is not connected  no data should be returned,
- *                      and the API returns dsERR_INVALID_STATE.
- * @length [out] *length The length of EDID buffer data
- * @return dsError_t Error code.
+ * @note Caller is responsible for allocating memory for edid( please refer ::MAX_EDID_BYTES_LEN ) and freeing the EDID buffer
+ *
+ * @return dsError_t                        - Status
+ * @retval dsERR_NONE                       - Success
+ * @retval dsERR_INVALID_PARAM              - Parameter passed to this function is invalid
+ * @retval dsERR_NOT_INITIALIZED            - Module is not initialised
+ * @retval dsERR_OPERATION_NOT_SUPPORTED    - The attempted operation is not supported
+ * @retval dsERR_GENERAL                    - Underlying undefined platform error
+ * 
+ * @pre  dsDisplayInit() and dsGetDisplay() must be called before calling this API
+ * 
+ * @warning  This API is Not thread safe
+ * 
  */
 dsError_t dsGetEDIDBytes(intptr_t handle, unsigned char *edid, int *length)
 {

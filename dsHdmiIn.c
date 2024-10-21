@@ -39,18 +39,16 @@
  */
 
 #include <stdio.h>
+#include <errno.h>
 #include <string.h>
-#include "dsHdmiIn.h"
-#include "dsHdmiInTypes.h"
-#include "dsAVDTypes.h"
-
 #include <stdint.h>    
 #include <stdbool.h>
-#include <errno.h>
+
 #include "dsError.h"
+#include "dsHdmiIn.h"
+#include "dsAVDTypes.h"
 #include "dsHdmiInTypes.h"
 #include "dsVideoDeviceTypes.h"
-#include "dsAVDTypes.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -874,5 +872,4 @@ dsError_t dsGetEdid2AllmSupport (dsHdmiInPort_t iHdmiPort, bool *allmSupport)
 #ifdef __cplusplus
 }
 #endif
-#endif /* __DS_HDMI_IN_H__ */
 

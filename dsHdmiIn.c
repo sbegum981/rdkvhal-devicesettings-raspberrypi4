@@ -122,10 +122,10 @@ dsError_t dsHdmiInTerm (void)
  */
 dsError_t dsHdmiInGetNumberOfInputs (uint8_t *pNumberOfinputs)
 {
-    if (pNumHdmiInputs == NULL)
+    if (NULL == pNumberOfinputs)
         return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
-    *pNumHdmiInputs = 0;
+    *pNumberOfinputs = 0;
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
 
@@ -150,7 +150,7 @@ dsError_t dsHdmiInGetNumberOfInputs (uint8_t *pNumberOfinputs)
  */
 dsError_t dsHdmiInGetStatus (dsHdmiInStatus_t *pStatus)
 {
-    if (pStatus == NULL)
+    if (NULL == pStatus)
         return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
@@ -271,6 +271,8 @@ dsError_t dsHdmiInSelectZoomMode (dsVideoZoom_t requestedZoomMode)
  */
 dsError_t dsHdmiInGetCurrentVideoMode (dsVideoPortResolution_t *resolution)
 {
+    if (NULL == resolution)
+        return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
@@ -622,6 +624,8 @@ dsError_t dsHdmiInRegisterAviContentTypeChangeCB (dsHdmiInAviContentTypeChangeCB
  */
 dsError_t dsIsHdmiARCPort (dsHdmiInPort_t iPort, bool *isArcPort)
 {
+    if (NULL == isArcPort)
+        return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
@@ -649,6 +653,8 @@ dsError_t dsIsHdmiARCPort (dsHdmiInPort_t iPort, bool *isArcPort)
  */
 dsError_t dsGetEDIDBytesInfo (dsHdmiInPort_t iHdmiPort, unsigned char *edid, int *length)
 {
+    if ((NULL == edid) || (NULL == length))
+        return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
@@ -676,6 +682,8 @@ dsError_t dsGetEDIDBytesInfo (dsHdmiInPort_t iHdmiPort, unsigned char *edid, int
  */
 dsError_t dsGetHDMISPDInfo (dsHdmiInPort_t iHdmiPort, unsigned char *data)
 {
+    if (NULL == data)
+        return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
@@ -732,6 +740,8 @@ dsError_t dsSetEdidVersion (dsHdmiInPort_t iHdmiPort, tv_hdmi_edid_version_t iEd
  */
 dsError_t dsGetEdidVersion (dsHdmiInPort_t iHdmiPort, tv_hdmi_edid_version_t *iEdidVersion)
 {
+    if (NULL == iEdidVersion)
+        return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
@@ -759,6 +769,8 @@ dsError_t dsGetEdidVersion (dsHdmiInPort_t iHdmiPort, tv_hdmi_edid_version_t *iE
  */
 dsError_t dsGetAllmStatus (dsHdmiInPort_t iHdmiPort, bool *allmStatus)
 {
+    if (NULL == allmStatus)
+        return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
@@ -785,6 +797,8 @@ dsError_t dsGetAllmStatus (dsHdmiInPort_t iHdmiPort, bool *allmStatus)
  */
 dsError_t dsGetSupportedGameFeaturesList (dsSupportedGameFeatureList_t* features)
 {
+    if (NULL == features)
+        return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
@@ -811,6 +825,8 @@ dsError_t dsGetSupportedGameFeaturesList (dsSupportedGameFeatureList_t* features
  */
 dsError_t dsGetAVLatency (int *audio_latency, int *video_latency)
 {
+    if ((NULL == audio_latency) || (NULL == video_latency))
+        return dsERR_INVALID_PARAM
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
@@ -864,6 +880,8 @@ dsError_t dsSetEdid2AllmSupport (dsHdmiInPort_t iHdmiPort, bool allmSupport)
  */
 dsError_t dsGetEdid2AllmSupport (dsHdmiInPort_t iHdmiPort, bool *allmSupport)
 {
+    if (NULL == allmSupport)
+        return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }

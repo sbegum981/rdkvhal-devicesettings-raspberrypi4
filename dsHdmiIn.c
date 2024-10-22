@@ -826,7 +826,7 @@ dsError_t dsGetSupportedGameFeaturesList (dsSupportedGameFeatureList_t* features
 dsError_t dsGetAVLatency (int *audio_latency, int *video_latency)
 {
     if ((NULL == audio_latency) || (NULL == video_latency))
-        return dsERR_INVALID_PARAM
+        return dsERR_INVALID_PARAM;
     // No HDMI-IN support.
     return dsERR_OPERATION_NOT_SUPPORTED;
 }
